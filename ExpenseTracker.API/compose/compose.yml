@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+     suco_db:
+        image:   mssql-shop
+        container_name: shop-db
+        environment:
+            MSSQL_SA_PASSWORD: ${DB_PASS}
+            SA_PASSWORD: ${DB_PASS}
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1450:1433"
+        restart: unless-stopped
+        healthcheck:
+            # 'localhost,1433' is needed because the container checks IT'S OWN localhost network -> different layer
+            test: /opt/mssql-tools/bin/sqlcmd -S 'localhost,1433' -U SA -P ${DB_PASS} -Q 'select 1'
+            interval: 10s
+            timeout: 2s
+            retries: 5

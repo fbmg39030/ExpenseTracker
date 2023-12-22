@@ -1,3 +1,7 @@
+using ExpenseTracker.API.Persistence;
+using ExpenseTracker.API.Util;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -35,6 +39,9 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+ExpenseTracker.API.Util.Configuration.UpdateConfiguration();
+DbSessionManager.InitializeSessionFactory(ExpenseTracker.API.Util.Configuration.CurrentConfiguration.DbConnectionString);
 
 app.Run();
 
