@@ -1,7 +1,7 @@
-﻿using ExpenseTracker.API.Models;
+﻿using Shop.API.Models;
 using NHibernate.Mapping.ByCode;
 
-namespace ExpenseTracker.API.Persistence;
+namespace Shop.API.Persistence;
 
 public class TestMap: BaseMap<TestDbo>
 {

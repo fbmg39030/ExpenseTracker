@@ -1,7 +1,7 @@
-﻿using ExpenseTracker.API.Models;
+﻿using Shop.API.Models;
 using FluentNHibernate.Mapping;
 
-namespace ExpenseTracker.API.Persistence;
+namespace Shop.API.Persistence;
 
 public class BaseMap<T> : ClassMap<T> where T : BaseDbo
 {

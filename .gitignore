@@ -1,6 +1,7 @@
 
 .vs/
 
-ExpenseTracker.API/bin/
-ExpenseTracker.API/obj
+Shop.API/bin/
+Shop.API/obj
 packages
+

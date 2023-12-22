@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.API.Util;
+﻿namespace Shop.API.Util;
 
 public class Configuration
 {

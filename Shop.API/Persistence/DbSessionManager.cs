@@ -7,7 +7,7 @@ using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 using ISession = NHibernate.ISession;
 
-namespace ExpenseTracker.API.Persistence;
+namespace Shop.API.Persistence;
 
 public static class DbSessionManager
 {
