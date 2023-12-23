@@ -8,3 +8,6 @@ packages
 
 ExpenseTracker.API/obj
 ExpenseTracker.API/bin
+
+Shop.Test/bin
+Shop.Test/obj
