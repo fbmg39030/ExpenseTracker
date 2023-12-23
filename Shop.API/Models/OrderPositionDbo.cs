@@ -1,6 +1,6 @@
 ﻿namespace Shop.API.Models;
 
-public class OrderProductsDbo : BaseDbo
+public class OrderPositionDbo : BaseDbo
 {
     public virtual OrderDbo Order { get; set; }
     public virtual ProductDbo Product {  get; set; }
