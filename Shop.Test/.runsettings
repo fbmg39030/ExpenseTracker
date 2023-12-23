@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+        <DB_CONNECTION_STRING_TEST>
+          Server=localhost,1450;Database=ShopDb_TEST;User=sa;Password=ByDUNYbtCHkz9xVkdXFJDkqafr965bAs;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True
+        </DB_CONNECTION_STRING_TEST>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

@@ -1,5 +1,5 @@
-using ExpenseTracker.API.Persistence;
-using ExpenseTracker.API.Util;
+using Shop.API.Persistence;
+using Shop.API.Util;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,8 +40,8 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-ExpenseTracker.API.Util.Configuration.UpdateConfiguration();
-DbSessionManager.InitializeSessionFactory(ExpenseTracker.API.Util.Configuration.CurrentConfiguration.DbConnectionString);
+Shop.API.Util.Configuration.UpdateConfiguration();
+DbSessionManager.InitializeSessionFactory(Shop.API.Util.Configuration.CurrentConfiguration.DbConnectionString);
 
 app.Run();
 

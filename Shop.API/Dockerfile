@@ -10,17 +10,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ExpenseTracker.API/ExpenseTracker.API.csproj", "ExpenseTracker.API/"]
-RUN dotnet restore "./ExpenseTracker.API/./ExpenseTracker.API.csproj"
+COPY ["Shop.API/Shop.API.csproj", "Shop.API/"]
+RUN dotnet restore "./Shop.API/./Shop.API.csproj"
 COPY . .
-WORKDIR "/src/ExpenseTracker.API"
-RUN dotnet build "./ExpenseTracker.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Shop.API"
+RUN dotnet build "./Shop.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ExpenseTracker.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Shop.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ExpenseTracker.API.dll"]
+ENTRYPOINT ["dotnet", "Shop.API.dll"]

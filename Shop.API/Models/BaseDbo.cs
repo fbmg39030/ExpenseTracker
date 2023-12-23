@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.API.Models;
+﻿namespace Shop.API.Models;
 
 public abstract class BaseDbo : ICloneable
 {
