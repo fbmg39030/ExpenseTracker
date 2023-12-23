@@ -1,7 +1,7 @@
 ﻿using Shop.API.Models;
 using FluentNHibernate.Mapping;
 
-namespace Shop.API.Persistence;
+namespace Shop.API.Persistence.Map;
 
 public class BaseMap<T> : ClassMap<T> where T : BaseDbo
 {
