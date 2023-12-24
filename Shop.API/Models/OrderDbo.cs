@@ -3,5 +3,5 @@
 public class OrderDbo : BaseDbo
 {
     public virtual string UserId { get; set; }
-    public virtual int TotalAmount { get; set; }
+    public virtual decimal TotalAmount { get; set; }
 }
