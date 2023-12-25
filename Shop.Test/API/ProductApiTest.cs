@@ -18,10 +18,11 @@ public class ProductApiTest
     [TestMethod]
     public void AddProduct()
     {
+        var testLoid = Guid.NewGuid(); 
         var request = new ProductAddOrUpdateRequest
         {
-            Name1 = "Bottle",
-            Description = "This is obviously a bottle",
+            Name1 = "Bottle"+ testLoid,
+            Description = "This is obviously a bottle"+ testLoid,
             Price = 15.2m
         };
 
@@ -33,48 +34,52 @@ public class ProductApiTest
 
     [TestMethod]
     public void UpdateProduct() {
+        var testLoid = Guid.NewGuid();
+
         var request = new ProductAddOrUpdateRequest
         {
-            Name1 = "Bottle",
-            Description = "This is obviously a bottle",
+            Name1 = "Bottle"+ testLoid,
+            Description = "This is obviously a bottle"+ testLoid,
             Price = 15.2m
         };
         var resultDto = ProductApi.AddOrUpdate(request);
         Assert.IsNotNull(resultDto);
 
-        request.Name1 = "NOT a bottle anymore";
-        request.Description = "This was a bottle years ago";
+        request.Name1 = "NOT a bottle anymore"+ testLoid;
+        request.Description = "This was a bottle years ago"+ testLoid;
         request.Price = 10.4m;
 
         var updateResult = ProductApi.AddOrUpdate(request);
         var updateResultDto = updateResult.GetType().GetProperty("Value")?.GetValue(updateResult, null) as ProductDto;
 
         Assert.IsNotNull(updateResultDto);
-        Assert.IsTrue(updateResultDto.Name1 == "NOT a bottle anymore");
+        Assert.IsTrue(updateResultDto.Name1 == "NOT a bottle anymore"+ testLoid);
 
     }
 
     [TestMethod]
     public void QueryProduct()
     {
+        var testLoid = Guid.NewGuid();
+
         var request = new ProductAddOrUpdateRequest
         {
-            Name1 = "Bottle",
-            Description = "This is obviously a bottle",
-            Price = 15.2m
+            Name1 = "Bottle"+ testLoid,
+            Description = "This is obviously a bottle"+ testLoid,
+            Price = 9.2m
         };
 
         var request2 = new ProductAddOrUpdateRequest
         {
-            Name1 = "Bottle",
-            Description = "This is obviously a bottle",
-            Price = 15.2m
+            Name1 = "Bottle" + testLoid,
+            Description = "This is obviously a bottle"+ testLoid,
+            Price = 9.2m
         };
 
         ProductApi.AddOrUpdate(request);
         ProductApi.AddOrUpdate(request2);
 
-        var result2 = ProductApi.Query(new ProductQp { Price = 15.2m });
+        var result2 = ProductApi.Query(new ProductQp { Price = 9.2m });
         var resultDtoList = result2.GetType().GetProperty("Value")?.GetValue(result2, null) as List<ProductDto>;
         Assert.IsNotNull(resultDtoList);
         Assert.IsTrue(resultDtoList.Count == 2);
