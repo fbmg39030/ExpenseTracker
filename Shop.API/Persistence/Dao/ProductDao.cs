@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Server.Circuits;
 using NHibernate.Criterion;
-using Shop.API.Models;
+using Shop.API.Models.Dbo;
 using Shop.API.Persistence.QueryParams;
 using System.Security.Policy;
 

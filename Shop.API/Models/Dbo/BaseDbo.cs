@@ -1,4 +1,4 @@
-﻿namespace Shop.API.Models;
+﻿namespace Shop.API.Models.Dbo;
 
 public abstract class BaseDbo : ICloneable
 {
@@ -12,6 +12,6 @@ public abstract class BaseDbo : ICloneable
     {
         // https://stackoverflow.com/a/8651750/10308805
         // MemberwiseClone creates a new instance and copies scalar fields into corresponding memebers
-        return this.MemberwiseClone();
+        return MemberwiseClone();
     }
 }

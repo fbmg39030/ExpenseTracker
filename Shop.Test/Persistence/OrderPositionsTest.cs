@@ -1,4 +1,5 @@
 ﻿using Shop.API.Models;
+using Shop.API.Models.Dbo;
 using Shop.API.Persistence.Dao;
 using Shop.API.Persistence.QueryParams;
 using System;

@@ -1,4 +1,4 @@
-﻿using Shop.API.Models;
+﻿using Shop.API.Models.Dbo;
 using Shop.API.Persistence.QueryParams;
 
 namespace Shop.API.Persistence.Dao;
