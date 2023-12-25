@@ -1,5 +1,5 @@
-﻿using Shop.API.Models;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
+using Shop.API.Models.Dbo;
 
 namespace Shop.API.Persistence.Map;
 

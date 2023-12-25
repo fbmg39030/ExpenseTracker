@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Shop.API.Models;
+namespace Shop.API.Models.Dbo;
 
 public class ProductDbo : BaseDbo
 {

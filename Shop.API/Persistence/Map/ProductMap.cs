@@ -1,5 +1,5 @@
-﻿using Shop.API.Models;
-using NHibernate.Mapping.ByCode;
+﻿using NHibernate.Mapping.ByCode;
+using Shop.API.Models.Dbo;
 
 namespace Shop.API.Persistence.Map;
 

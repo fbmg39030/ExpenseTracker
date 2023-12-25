@@ -1,4 +1,4 @@
-﻿namespace Shop.API.Models;
+﻿namespace Shop.API.Models.Dbo;
 
 public class ProductImageDbo : BaseDbo
 {

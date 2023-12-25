@@ -1,4 +1,4 @@
-﻿using Shop.API.Models;
+﻿using Shop.API.Models.Dbo;
 
 namespace Shop.API.Persistence.Map;
 
