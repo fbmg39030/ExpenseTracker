@@ -1,5 +1,6 @@
 ﻿using Shop.API.Models;
 using Shop.API.Models.Dbo;
+using Shop.API.Models.Dto;
 using Shop.API.Persistence.Dao;
 using Shop.API.Persistence.QueryParams;
 using System;
@@ -16,99 +17,63 @@ public class OrderPositionsTest
     [TestMethod]
     public void CreateOrderPositions()
     {
-        var loid = Guid.NewGuid();
-        var orderDbo = new OrderDbo
-        {
-            LogicalObjectId = loid,
-            UserId = "TestLoid" + loid,
-            TotalAmount = 0,
-        };
-        OrderDao.SaveOrUpdate(orderDbo);
-
-        var productLoid = Guid.NewGuid();   
+        var productLoid2 = Guid.NewGuid();
         var productDbo = new ProductDbo
         {
-            LogicalObjectId = productLoid,
-            Name1 = "Bottle",
-            Price = 20.5m
+            LogicalObjectId = productLoid2,
+            Name1 = "Shoes",
+            Price = 40.5m
         };
         ProductDao.SaveOrUpdate(productDbo);
 
-        var orderPositionsLoid = Guid.NewGuid();
-        var orderPosition1 = new OrderPositionDbo
+        var orderPositionDbo = new OrderPositionDbo
         {
-            LogicalObjectId = orderPositionsLoid,
-            Order = orderDbo,
+            LogicalObjectId = Guid.NewGuid(),
             Product = productDbo,
             Quantity = 2,
             UnitPrice = 18.5m
         };
-        OrderPositionDao.SaveOrUpdate(orderPosition1);
+        OrderPositionDao.SaveOrUpdate(orderPositionDbo);
 
-        var queriedPosition = OrderPositionDao.QueryByLogicalObjectId(orderPositionsLoid);
+        var queriedPosition = OrderPositionDao.QueryByLogicalObjectId(orderPositionDbo.LogicalObjectId);
         Assert.IsNotNull(queriedPosition);
-        Assert.AreEqual(queriedPosition.Order.LogicalObjectId, orderDbo.LogicalObjectId);
-        Assert.AreEqual(queriedPosition.Product.LogicalObjectId, productLoid);
-
+        Assert.AreEqual(queriedPosition.LogicalObjectId, orderPositionDbo.LogicalObjectId);
     }
 
     [TestMethod]
-    public void FindOrderPositionsForOrder()
+    public void UpdateOrderPosition()
     {
-        var orderLoid = Guid.NewGuid();
-        var orderDbo = new OrderDbo
-        {
-            LogicalObjectId = orderLoid,
-            UserId = "TestLoid" + orderLoid,
-            TotalAmount = 0,
-        };
-        OrderDao.SaveOrUpdate(orderDbo);
-
         var productLoid = Guid.NewGuid();
         var productDbo = new ProductDbo
         {
             LogicalObjectId = productLoid,
-            Name1 = "Bottle",
-            Price = 20.5m
-        };
-        var productLoid2 = Guid.NewGuid();
-        var productDbo2 = new ProductDbo
-        {
-            LogicalObjectId = productLoid2,
-            Name1 = "Mouse",
-            Price = 10m
+            Name1 = "Shoes",
+            Price = 40.5m
         };
         ProductDao.SaveOrUpdate(productDbo);
-        ProductDao.SaveOrUpdate(productDbo2);
 
-        var orderPositionsLoid = Guid.NewGuid();
-        var orderPositionsLoid2 = Guid.NewGuid();
-        var orderPosition1 = new OrderPositionDbo
+        var orderPositionDbo = new OrderPositionDbo
         {
-            LogicalObjectId = orderPositionsLoid,
-            Order = orderDbo,
+            LogicalObjectId = Guid.NewGuid(),
             Product = productDbo,
             Quantity = 2,
             UnitPrice = 18.5m
         };
-        OrderPositionDao.SaveOrUpdate(orderPosition1);
-        var orderPosition2 = new OrderPositionDbo
-        {
-            LogicalObjectId = orderPositionsLoid2,
-            Order = orderDbo,
-            Product = productDbo2,
-            Quantity = 1,
-            UnitPrice = 18.5m
-        };
-        OrderPositionDao.SaveOrUpdate(orderPosition2);
+        OrderPositionDao.SaveOrUpdate(orderPositionDbo);
 
+        //Update 
+        productDbo.Name1 = "Bottle";
+        productDbo.Price = 10.5m;
+        ProductDao.SaveOrUpdate(productDbo);
 
-        var queriedPositionsList = OrderPositionDao.QueryByParameters(new OrderPositionQp { Order = orderLoid });
-        Assert.IsNotNull(queriedPositionsList);
-        Assert.IsTrue(queriedPositionsList.Count == 2);
+        orderPositionDbo.Product = productDbo;
+        orderPositionDbo.UnitPrice = 5.8m;
+        OrderPositionDao.SaveOrUpdate(orderPositionDbo);
 
-        var queriedPositionsList2 = OrderPositionDao.QueryByParameters(new OrderPositionQp { Product = productLoid });
-        Assert.IsNotNull(queriedPositionsList2);
-        Assert.IsTrue(queriedPositionsList2.Count == 1);
+        var queriedPosition = OrderPositionDao.QueryByLogicalObjectId(orderPositionDbo.LogicalObjectId);
+        Assert.IsNotNull(queriedPosition);
+        Assert.AreEqual(queriedPosition.LogicalObjectId, orderPositionDbo.LogicalObjectId);
+        Assert.AreEqual(queriedPosition.UnitPrice, 5.8m);
+        Assert.AreEqual(queriedPosition.Product.Name1, "Bottle");
     }
 }
