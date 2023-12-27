@@ -3,6 +3,7 @@ using Shop.API.Models.Dbo;
 using Shop.API.Models.Dto;
 using Shop.API.Models.Request;
 using Shop.API.Persistence.Dao;
+using Shop.API.Persistence.QueryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,44 @@ public class OrderApiTest
         Assert.IsNotNull(orderDto);
         Assert.IsTrue(orderDto.OrderPositionList.Count == 2);
         Assert.IsTrue(orderDto.OrderPositionList[1].Quantity == 5);
+    }
+
+    [TestMethod]
+    public void QueryOrder()
+    {
+        var productLoid = Guid.NewGuid();
+        var productDbo = new ProductDbo()
+        {
+            LogicalObjectId = productLoid,
+            Name1 = "Product1" + productLoid,
+            Price = 20m
+        };
+        ProductDao.SaveOrUpdate(productDbo);
+
+        var positionsList = new List<CreateOrderPositionRequest>();
+        var position1 = new CreateOrderPositionRequest()
+        {
+            Quantity = 2,
+            UnitPrice = 10,
+            ProductLoid = productLoid
+        };
+        positionsList.Add(position1);
+
+        OrderCreateOrUpdateRequest request = new OrderCreateOrUpdateRequest()
+        {
+            OderPositionRequests = positionsList
+        };
+
+        var orderResult = OrderApi.CreateOrUpdate(request);
+        var orderDto = orderResult.GetType().GetProperty("Value")?.GetValue(orderResult, null) as OrderDto;
+        Assert.IsNotNull(orderDto);
+
+
+        //atm there are not real qp to query from --> will use empty, will search for all
+        var queriedOrderResult = OrderApi.Query(new OrderQp() { });
+        var queriedResultDto = queriedOrderResult.GetType().GetProperty("Value")?.GetValue(queriedOrderResult, null) as List<OrderDto>;  
+        Assert.IsNotNull(queriedResultDto);
+        Assert.IsTrue(queriedResultDto.FirstOrDefault().OrderPositionList.FirstOrDefault().Product.Name1 == "Product1" + productLoid);
     }
 }
 
