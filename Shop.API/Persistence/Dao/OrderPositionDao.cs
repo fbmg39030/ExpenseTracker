@@ -15,7 +15,6 @@ public class OrderPositionDao : BaseDao<OrderPositionDao, OrderPositionDbo, Orde
         var hasDatabaseId = qp.DatabaseId != Guid.Empty;
         var hasLogicalObjectId = qp.LogicalObjectId != Guid.Empty;
 
-        var hasOrderLoid = qp.Order != Guid.Empty;
         var hasProductLoid = qp.Product != Guid.Empty;
 
         if (hasDbIdList)
@@ -36,12 +35,6 @@ public class OrderPositionDao : BaseDao<OrderPositionDao, OrderPositionDbo, Orde
         if (hasLogicalObjectId)
         {
             criteria.Add(Restrictions.Eq(nameof(BaseDbo.LogicalObjectId), qp.LogicalObjectId));
-        }
-
-        if(hasOrderLoid)
-        {
-            criteria.CreateAlias($"{nameof(OrderPositionDbo.Order)}", "Order");
-            criteria.Add(Restrictions.Eq($"Order.{nameof(OrderDbo.LogicalObjectId)}", qp.Order));
         }
 
         if (hasProductLoid)

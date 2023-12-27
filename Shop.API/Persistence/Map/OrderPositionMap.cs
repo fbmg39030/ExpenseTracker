@@ -11,11 +11,6 @@ public class OrderPositionMap : BaseMap<OrderPositionDbo>
         Map(x => x.Quantity).Not.Nullable();
         Map(x => x.UnitPrice).Not.Nullable();
 
-        References(x => x.Order).Column(nameof(OrderPositionDbo.Order) + Reference)
-            .ForeignKey(ForeignKey + nameof(OrderPositionDbo.Order) + "_" + "1111AA")
-            .Cascade.None()
-            .Not.LazyLoad();
-
         References(x => x.Product).Column(nameof(OrderPositionDbo.Product) + Reference)
             .ForeignKey(ForeignKey + nameof(OrderPositionDbo.Product) + "_" + "2222AA");
     }

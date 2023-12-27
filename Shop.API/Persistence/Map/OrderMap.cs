@@ -10,5 +10,8 @@ public class OrderMap : BaseMap<OrderDbo>
         Map(x => x.LogicalObjectId).Unique().Not.Nullable();
         Map(x => x.UserId);
         Map(x => x.TotalAmount);
+
+        HasMany(x => x.OrderPositionList).Cascade.AllDeleteOrphan().Not.LazyLoad().KeyColumn(TableName + Reference);
     }
+
 }
