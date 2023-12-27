@@ -20,7 +20,7 @@ public static class OrderApi
         application.MapPost("/api/Order/Query", Query)
             .WithName("Order_Query")
             .WithTags("Order")
-            .Produces(StatusCodes.Status200OK, typeof(OrderDto));
+            .Produces(StatusCodes.Status200OK, typeof(List<OrderDto>));
     }
 
     public static IResult CreateOrUpdate(OrderCreateOrUpdateRequest request)

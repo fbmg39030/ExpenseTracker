@@ -49,8 +49,8 @@ public static class OrderManager
 
     public static OrderResult Query(OrderQp qp)
     {
-        var orderDbo = OrderDao.QueryFirstOrDefaultByParameters(qp);
-        var orderDto = OrderDto.FromDbo(orderDbo, new());
-        return OrderResult.FromDto(HttpStatusCode.OK, orderDto);
+        var orderDboList = OrderDao.QueryByParameters(qp);
+        var orderDtoList = OrderDto.FromDboList(orderDboList, new());
+        return OrderResult.FromDtoList(HttpStatusCode.OK, orderDtoList);
     }
 }

@@ -29,4 +29,9 @@ public class OrderDto : BaseDto<OrderDbo, OrderDto>
         dtoReferences.Add(dto.LogicalObjectId, dto);
         return dto; 
     }
+
+    public static List<OrderDto> FromDboList(IList<OrderDbo> dboList, Dictionary<Guid, object> dtoReferences)
+    {
+        return dboList?.Select(dbo => FromDbo(dbo, dtoReferences)).ToList();
+    }
 }

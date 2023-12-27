@@ -6,7 +6,7 @@ namespace Shop.API.Persistence.Dao;
 
 public class OrderDao : BaseDao<OrderDao, OrderDbo, OrderQp>, IBaseDao<OrderDbo, OrderQp>
 {
-    public static IList<OrderDbo> QueryByParams(OrderQp qp)
+    public static IList<OrderDbo> QueryByParameters(OrderQp qp)
     {
         using var session = DbSessionManager.OpenReadOnlySession();
         var criteria = session.CreateCriteria<OrderDbo>();
