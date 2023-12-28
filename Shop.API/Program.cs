@@ -1,3 +1,4 @@
+using Shop.API.Api;
 using Shop.API.Persistence;
 using Shop.API.Util;
 using System.Configuration;
@@ -42,6 +43,9 @@ app.MapGet("/weatherforecast", () =>
 
 Shop.API.Util.Configuration.UpdateConfiguration();
 DbSessionManager.InitializeSessionFactory(Shop.API.Util.Configuration.CurrentConfiguration.DbConnectionString);
+
+OrderApi.Setup(app);
+ProductApi.Setup(app);
 
 app.Run();
 
