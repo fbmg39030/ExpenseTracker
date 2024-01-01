@@ -11,6 +11,8 @@ public class ProductDto : BaseDto<ProductDbo, ProductDto>
     public string Name1 { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
+    public ProductStatus Status { get; set; }
+    public string Tag { get; set; }
     //public virtual int StockQuantity { get; set; }
     //public List<string> ImageUrl { get; set; }
 
@@ -25,6 +27,8 @@ public class ProductDto : BaseDto<ProductDbo, ProductDto>
             Name1 = dbo.Name1,
             Description = dbo.Description,
             Price = dbo.Price,
+            Status = dbo.Status,
+            Tag = dbo.Tag,
         };
         dtoReferences.Add(dto.LogicalObjectId, dto);
         return dto;

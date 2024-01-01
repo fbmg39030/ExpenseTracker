@@ -1,4 +1,5 @@
 ﻿using Shop.API.Api;
+using Shop.API.Models.Dbo;
 using Shop.API.Models.Dto;
 using Shop.API.Models.Request;
 using Shop.API.Persistence.Dao;
@@ -23,13 +24,17 @@ public class ProductApiTest
         {
             Name1 = "Bottle"+ testLoid,
             Description = "This is obviously a bottle"+ testLoid,
-            Price = 15.2m
+            Price = 15.2m,
+            Tag = "Accessories", 
+            Status = ProductStatus.INSTOCK
         };
 
         var result = ProductApi.AddOrUpdate(request);
         var resultDto = result.GetType().GetProperty("Value")?.GetValue(result, null) as ProductDto;
 
         Assert.IsNotNull(resultDto);
+        Assert.AreEqual(resultDto.Status, ProductStatus.INSTOCK);
+        Assert.AreEqual(resultDto.Tag, request.Tag);
     }
 
     [TestMethod]
