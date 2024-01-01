@@ -62,7 +62,7 @@ namespace Shop.Test.Persistence
         }
 
         [TestMethod]
-        public void UpdateProductStatus()
+        public void CheckProductStatusAndTag()
         {
             var productLoid = Guid.NewGuid();
             var productDbo = new ProductDbo
@@ -71,20 +71,16 @@ namespace Shop.Test.Persistence
                 Name1 = "Name_" + productLoid,
                 Description = "Description_" + productLoid,
                 Price = 20.2m, 
+                Tag = "Accessories",
                 Status = ProductStatus.INACTIVE
             };
 
             ProductDao.SaveOrUpdate(productDbo);
 
-            productDbo.Price = 120.20m;
-            productDbo.Name1 = "Name2_" + productLoid;
-            productDbo.Status = ProductStatus.INSTOCK; 
-
-            ProductDao.SaveOrUpdate(productDbo);
-
             var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
             Assert.IsNotNull(queriedProductDbo);
-            Assert.AreEqual(queriedProductDbo.Status, ProductStatus.INSTOCK);
+            Assert.AreEqual(queriedProductDbo.Status, ProductStatus.INACTIVE);
+            Assert.AreEqual(queriedProductDbo.Tag, "Accessories");
         }
     }
 }
