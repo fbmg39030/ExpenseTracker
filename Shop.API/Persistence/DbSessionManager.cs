@@ -30,8 +30,8 @@ public static class DbSessionManager
         //MappingConfig.SetInterceptor(new Interceptor());
 
         var schema = new SchemaExport(MappingConfig);
-        schema.Drop(true, true);
-        schema.Create(true, true);
+        //schema.Drop(true, true);
+        //schema.Create(true, true);
 
         s_sessionFactory = MappingConfig?.BuildSessionFactory();
         //Logger.LogInformation("Session Factory now ready");
