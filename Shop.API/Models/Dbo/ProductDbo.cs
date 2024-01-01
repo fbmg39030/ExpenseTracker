@@ -1,4 +1,5 @@
 ﻿using NHibernate.Type;
+using Shop.API.Models.Enum;
 using System.ComponentModel;
 using System.Xml.Linq;
 
@@ -12,12 +13,4 @@ public class ProductDbo : BaseDbo
     public virtual ProductStatus Status { get; set; }
     public virtual string Tag { get; set; }
     public virtual List<string> ImageUrl { get; set; }
-}
-
-public enum ProductStatus
-{
-    INSTOCK,
-    LOWSTOCK,
-    OUTOFSTOCK,
-    INACTIVE
 }

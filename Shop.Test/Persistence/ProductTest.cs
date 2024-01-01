@@ -1,5 +1,6 @@
 ﻿using Shop.API.Models;
 using Shop.API.Models.Dbo;
+using Shop.API.Models.Enum;
 using Shop.API.Persistence.Dao;
 using System;
 using System.Collections.Generic;

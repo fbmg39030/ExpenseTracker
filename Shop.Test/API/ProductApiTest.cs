@@ -1,6 +1,7 @@
 ﻿using Shop.API.Api;
 using Shop.API.Models.Dbo;
 using Shop.API.Models.Dto;
+using Shop.API.Models.Enum;
 using Shop.API.Models.Request;
 using Shop.API.Persistence.Dao;
 using Shop.API.Persistence.QueryParams;

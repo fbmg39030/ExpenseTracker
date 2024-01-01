@@ -1,4 +1,5 @@
 ﻿using Shop.API.Models.Dbo;
+using Shop.API.Models.Enum;
 
 namespace Shop.API.Models.Request;
 
