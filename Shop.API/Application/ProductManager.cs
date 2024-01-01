@@ -37,6 +37,8 @@ public static class ProductManager
             productDbo.Name1 = request.Name1;
             productDbo.Description = request.Description;
             productDbo.Price = request.Price;
+            productDbo.Status = request.Status;
+            productDbo.Tag = request.Tag;
         }
         //create
         else
@@ -47,7 +49,9 @@ public static class ProductManager
                 Name1 = request.Name1,
                 Description = request.Description,
                 Price = request.Price,
-            };
+                Status = request.Status, 
+                Tag = request.Tag
+        };
         }
         ProductDao.SaveOrUpdate(productDbo);
 

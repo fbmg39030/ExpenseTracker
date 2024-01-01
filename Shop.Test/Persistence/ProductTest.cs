@@ -1,5 +1,6 @@
 ﻿using Shop.API.Models;
 using Shop.API.Models.Dbo;
+using Shop.API.Models.Enum;
 using Shop.API.Persistence.Dao;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,28 @@ namespace Shop.Test.Persistence
             Assert.AreEqual(queriedProductDbo.Name1, "Name2_" + productLoid);
             Assert.AreEqual(queriedProductDbo.Description, "Description_" + productLoid);
             Assert.AreEqual(queriedProductDbo.Price, 120.20m);
+        }
+
+        [TestMethod]
+        public void CheckProductStatusAndTag()
+        {
+            var productLoid = Guid.NewGuid();
+            var productDbo = new ProductDbo
+            {
+                LogicalObjectId = productLoid,
+                Name1 = "Name_" + productLoid,
+                Description = "Description_" + productLoid,
+                Price = 20.2m, 
+                Tag = "Accessories",
+                Status = ProductStatus.INACTIVE
+            };
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
+            Assert.IsNotNull(queriedProductDbo);
+            Assert.AreEqual(queriedProductDbo.Status, ProductStatus.INACTIVE);
+            Assert.AreEqual(queriedProductDbo.Tag, "Accessories");
         }
     }
 }
