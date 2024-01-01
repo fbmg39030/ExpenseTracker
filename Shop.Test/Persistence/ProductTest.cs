@@ -60,5 +60,31 @@ namespace Shop.Test.Persistence
             Assert.AreEqual(queriedProductDbo.Description, "Description_" + productLoid);
             Assert.AreEqual(queriedProductDbo.Price, 120.20m);
         }
+
+        [TestMethod]
+        public void UpdateProductStatus()
+        {
+            var productLoid = Guid.NewGuid();
+            var productDbo = new ProductDbo
+            {
+                LogicalObjectId = productLoid,
+                Name1 = "Name_" + productLoid,
+                Description = "Description_" + productLoid,
+                Price = 20.2m, 
+                Status = ProductStatus.INACTIVE
+            };
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            productDbo.Price = 120.20m;
+            productDbo.Name1 = "Name2_" + productLoid;
+            productDbo.Status = ProductStatus.INSTOCK; 
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
+            Assert.IsNotNull(queriedProductDbo);
+            Assert.AreEqual(queriedProductDbo.Status, ProductStatus.INSTOCK);
+        }
     }
 }
