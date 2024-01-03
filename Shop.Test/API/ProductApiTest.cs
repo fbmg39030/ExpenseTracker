@@ -91,4 +91,33 @@ public class ProductApiTest
         Assert.IsTrue(resultDtoList.Count == 2);
 
     }
+
+
+    [TestMethod]
+    public void AddProductWithTechDetails()
+    {
+        var productLoid = Guid.NewGuid();
+        var dict = new Dictionary<string, string>
+        {
+            { $"Entry_1_{productLoid}", $"Entry_1_{productLoid}" },
+            { $"Entry_2_{productLoid}", $"Entry_2_{productLoid}" }
+        };
+
+        var request = new ProductAddOrUpdateRequest
+        {
+            Name1 = "Bottle" + productLoid,
+            Description = "This is obviously a bottle" + productLoid,
+            Price = 15.2m,
+            Tag = "Accessories",
+            Status = ProductStatus.INSTOCK,
+            TechDetails = dict
+        };
+
+        var result = ProductApi.AddOrUpdate(request);
+        var resultDto = result.GetType().GetProperty("Value")?.GetValue(result, null) as ProductDto;
+
+        Assert.IsNotNull(resultDto);
+        Assert.IsTrue(resultDto.TechDetails.Values.Count == 2);
+        Assert.IsTrue(resultDto.TechDetails.ContainsKey($"Entry_1_{productLoid}"));
+    }
 }
