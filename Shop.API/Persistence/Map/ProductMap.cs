@@ -20,6 +20,9 @@ public class ProductMap : BaseMap<ProductDbo>
         Map(x => x.Status).CustomType<ProductStatus>();
         //Map(x => x.StockQuantity);
         Map(x => x.ImageUrl).Nullable();
-        Not.LazyLoad();
+
+        HasMany(x => x.TechnicalDetails).Table("Dictionary_table")
+            .KeyColumn(nameof(TableName)+Reference).AsMap<string>("string")
+            .Element("value").Not.LazyLoad();
     }
 }

@@ -13,4 +13,6 @@ public class ProductDbo : BaseDbo
     public virtual ProductStatus Status { get; set; }
     public virtual string Tag { get; set; }
     public virtual List<string> ImageUrl { get; set; }
+    public virtual IDictionary<string, string>? TechnicalDetails { get; set; }
+
 }
