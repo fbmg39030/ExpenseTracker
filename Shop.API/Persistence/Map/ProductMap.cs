@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using NHibernate.Mapping;
 using NHibernate.Mapping.ByCode;
 using Shop.API.Models.Dbo;
 using Shop.API.Models.Enum;
@@ -14,14 +15,17 @@ public class ProductMap : BaseMap<ProductDbo>
     {
         Map(x => x.LogicalObjectId).Unique().Not.Nullable();
         Map(x => x.Name1).Not.Nullable();
-        Map(x => x.Description).Length(4096);
+        Map(x => x.Description).CustomSqlType("nvarchar(max)").Length(Int32.MaxValue).Nullable(); ;
         Map(x => x.Price);
         Map(x => x.Tag);
         Map(x => x.Status).CustomType<ProductStatus>();
-        //Map(x => x.StockQuantity);
-        Map(x => x.ImageUrl).Nullable();
 
-        HasMany(x => x.TechnicalDetails).Table("Dictionary_table")
+        //HasMany(x => x.Images).Table("ProductImage")
+        //    .KeyColumn(nameof(TableName) + Reference).AsList()
+        //    .Element("value").Not.LazyLoad();
+        HasMany(x => x.Images).Cascade.AllDeleteOrphan().Not.LazyLoad().KeyColumn(TableName + Reference);
+
+        HasMany(x => x.TechnicalDetails).Table("ProductTechnicalDetails")
             .KeyColumn(nameof(TableName)+Reference).AsMap<string>("string")
             .Element("value").Not.LazyLoad();
     }

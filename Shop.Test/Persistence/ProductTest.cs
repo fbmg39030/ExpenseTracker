@@ -113,6 +113,44 @@ namespace Shop.Test.Persistence
             Assert.IsTrue(queriedProductDbo.TechnicalDetails.Values.Count == 2);
             Assert.IsTrue(queriedProductDbo.TechnicalDetails.ContainsKey($"Entry_1_{productLoid}"));
         }
+
+        [TestMethod]
+        public void AddProductImages()
+        {
+            var productLoid = Guid.NewGuid();
+            var imagePath = "galeria-4.jpg"; // Replace with the actual path to your test image
+
+            byte[] imageBytes;
+            using (FileStream fileStream = new(imagePath, FileMode.Open, FileAccess.Read))
+            {
+                using BinaryReader binaryReader = new BinaryReader(fileStream);
+                imageBytes = binaryReader.ReadBytes((int)fileStream.Length);
+            }
+
+            var productImageDbo = new ProductImageDbo()
+            {
+                Bytes = imageBytes,
+                MimeType = "image/jpeg",
+                Name = "galeria-4.jpg",
+                Version = 1,
+            };
+
+
+            var productDbo = new ProductDbo
+            {
+                LogicalObjectId = productLoid,
+                Name1 = "Name_" + productLoid,
+                Description = "Description_" + productLoid,
+                Images = new List<ProductImageDbo>() { productImageDbo }
+            };
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
+            Assert.IsNotNull(queriedProductDbo);
+            Assert.IsTrue(queriedProductDbo.Images.Count == 1);
+            //Assert.IsTrue(queriedProductDbo.Images.FirstOrDefault().Length == imageBytes.Length);
+        }
     }
 
 }

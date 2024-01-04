@@ -2,6 +2,8 @@
 
 public class ProductImageDbo : BaseDbo
 {
-    public virtual byte[] Image { get; set; }
-    public virtual ProductDbo Product { get; set; }
+    public virtual string Name { get; set; }
+    public virtual byte[] Bytes { get; set; }
+    public virtual decimal Version { get; set; }
+    public virtual string MimeType { get; set; }
 }
