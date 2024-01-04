@@ -12,4 +12,5 @@ public class ProductAddOrUpdateRequest
     public string Tag { get; set; }
     public ProductStatus Status { get; set; }
     public Dictionary<string, string> TechDetails { get; set; }
+    public List<AddProductImageRequest> ImageRequests { get; set; }
 }

@@ -15,8 +15,7 @@ public class ProductDto : BaseDto<ProductDbo, ProductDto>
     public ProductStatus Status { get; set; }
     public string Tag { get; set; }
     public IDictionary<string, string> TechDetails { get; set; }
-    //public virtual int StockQuantity { get; set; }
-    //public List<string> ImageUrl { get; set; }
+    public List<ProductImageDto> Images { get; set; }
 
     public static ProductDto FromDbo(ProductDbo dbo, Dictionary<Guid, object> dtoReferences)
     {
@@ -31,6 +30,7 @@ public class ProductDto : BaseDto<ProductDbo, ProductDto>
             Price = dbo.Price,
             Status = dbo.Status,
             Tag = dbo.Tag,
+            Images = ProductImageDto.FromDboList(dbo.Images, new()),          
             TechDetails = dbo.TechnicalDetails ?? new Dictionary<string, string>()            
         };
         dtoReferences.Add(dto.LogicalObjectId, dto);

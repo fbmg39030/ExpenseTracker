@@ -26,6 +26,23 @@ public static class ProductManager
     public static ProductResult AddOrUpdate(ProductAddOrUpdateRequest request)
     {
         ProductDbo productDbo;
+        List<ProductImageDbo> imageDboList = new();
+
+        if (request.ImageRequests.Count > 0)
+        {
+            imageDboList = request.ImageRequests.Select(request =>
+            {
+                var productImageDbo = new ProductImageDbo()
+                {
+                    LogicalObjectId = Guid.NewGuid(),
+                    MimeType = request.MimeType,
+                    Bytes = request.Bytes,
+                    Name = request.Name,
+                    Version = request.Version
+                };
+                return productImageDbo;
+            }).ToList();
+        }
         //update
         if (request.LogicalObjectId != Guid.Empty)
         {
@@ -40,6 +57,7 @@ public static class ProductManager
             productDbo.Status = request.Status;
             productDbo.Tag = request.Tag;
             productDbo.TechnicalDetails = request.TechDetails;
+            productDbo.Images = imageDboList;
         }
         //create
         else
@@ -52,7 +70,8 @@ public static class ProductManager
                 Price = request.Price,
                 Status = request.Status, 
                 Tag = request.Tag,
-                TechnicalDetails = request.TechDetails
+                TechnicalDetails = request.TechDetails,
+                Images = imageDboList
             };
         }
         ProductDao.SaveOrUpdate(productDbo);
