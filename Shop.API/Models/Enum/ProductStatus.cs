@@ -1,4 +1,6 @@
-﻿namespace Shop.API.Models.Enum;
+﻿using System.ComponentModel;
+
+namespace Shop.API.Models.Enum;
 
 public enum ProductStatus
 {

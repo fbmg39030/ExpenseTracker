@@ -1,6 +1,6 @@
-﻿namespace Shop.API.Models.Dbo;
+﻿namespace Shop.API.Models.Request;
 
-public class ProductImageDbo : BaseDbo
+public class AddProductImageRequest
 {
     public virtual string Name { get; set; }
     public virtual byte[] Bytes { get; set; }

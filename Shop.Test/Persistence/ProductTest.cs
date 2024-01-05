@@ -83,5 +83,74 @@ namespace Shop.Test.Persistence
             Assert.AreEqual(queriedProductDbo.Status, ProductStatus.INACTIVE);
             Assert.AreEqual(queriedProductDbo.Tag, "Accessories");
         }
+
+
+        [TestMethod]
+        public void CheckTechnicalDetailsDictionary()
+        {
+            var productLoid = Guid.NewGuid();
+            var dict = new Dictionary<string, string>
+            {
+                { $"Entry_1_{productLoid}", $"Entry_1_{productLoid}" },
+                { $"Entry_2_{productLoid}", $"Entry_2_{productLoid}" }
+            };
+
+            var productDbo = new ProductDbo
+            {
+                LogicalObjectId = productLoid,
+                Name1 = "Name_" + productLoid,
+                Description = "Description_" + productLoid,
+                Price = 20.2m,
+                Tag = "Accessories",
+                Status = ProductStatus.INSTOCK,
+                TechnicalDetails = dict
+            };
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
+            Assert.IsNotNull(queriedProductDbo);
+            Assert.IsTrue(queriedProductDbo.TechnicalDetails.Values.Count == 2);
+            Assert.IsTrue(queriedProductDbo.TechnicalDetails.ContainsKey($"Entry_1_{productLoid}"));
+        }
+
+        [TestMethod]
+        public void AddProductImages()
+        {
+            var productLoid = Guid.NewGuid();
+            var imagePath = "galeria-4.jpg"; // Replace with the actual path to your test image
+
+            byte[] imageBytes;
+            using (FileStream fileStream = new(imagePath, FileMode.Open, FileAccess.Read))
+            {
+                using BinaryReader binaryReader = new BinaryReader(fileStream);
+                imageBytes = binaryReader.ReadBytes((int)fileStream.Length);
+            }
+
+            var productImageDbo = new ProductImageDbo()
+            {
+                Bytes = imageBytes,
+                MimeType = "image/jpeg",
+                Name = "galeria-4.jpg",
+                Version = 1,
+            };
+
+
+            var productDbo = new ProductDbo
+            {
+                LogicalObjectId = productLoid,
+                Name1 = "Name_" + productLoid,
+                Description = "Description_" + productLoid,
+                Images = new List<ProductImageDbo>() { productImageDbo }
+            };
+
+            ProductDao.SaveOrUpdate(productDbo);
+
+            var queriedProductDbo = ProductDao.QueryByLogicalObjectId(productLoid);
+            Assert.IsNotNull(queriedProductDbo);
+            Assert.IsTrue(queriedProductDbo.Images.Count == 1);
+            //Assert.IsTrue(queriedProductDbo.Images.FirstOrDefault().Length == imageBytes.Length);
+        }
     }
+
 }

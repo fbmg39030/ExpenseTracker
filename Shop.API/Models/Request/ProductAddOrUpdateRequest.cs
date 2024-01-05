@@ -11,4 +11,6 @@ public class ProductAddOrUpdateRequest
     public decimal Price { get; set; }
     public string Tag { get; set; }
     public ProductStatus Status { get; set; }
+    public Dictionary<string, string> TechDetails { get; set; }
+    public List<AddProductImageRequest> ImageRequests { get; set; }
 }
