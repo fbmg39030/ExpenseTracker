@@ -19,6 +19,7 @@ public class ProductDao : BaseDao<ProductDao, ProductDbo, ProductQp>, IBaseDao<P
         var hasName = !string.IsNullOrEmpty(qp.Name1);
         var hasDescription = !string.IsNullOrEmpty(qp.Description);
         var hasPrice = qp.Price > 0;
+        var hasStatus = qp.Status!=null;
 
         if (hasDbIdList)
         {
@@ -53,6 +54,11 @@ public class ProductDao : BaseDao<ProductDao, ProductDbo, ProductQp>, IBaseDao<P
         if (hasPrice)
         {
             criteria.Add(Restrictions.Eq(nameof(ProductDbo.Price), qp.Price));
+        }
+        
+        if(hasStatus)
+        {
+            criteria.Add(Restrictions.In(nameof(ProductDbo.Status), qp.Status));
         }
 
         return criteria.List<ProductDbo>();
