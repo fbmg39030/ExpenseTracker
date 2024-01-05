@@ -28,7 +28,7 @@ public static class ProductManager
         ProductDbo productDbo;
         List<ProductImageDbo> imageDboList = new();
 
-        if (request.ImageRequests.Count > 0)
+        if (request.ImageRequests!= null && request.ImageRequests.Count > 0)
         {
             imageDboList = request.ImageRequests.Select(request =>
             {
